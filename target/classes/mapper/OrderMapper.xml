@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uspsassa.phishing.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.uspsassa.phishing.entity.Order">
+    <!--@mbg.generated-->
+    <!--@Table phishing.tb_order-->
+    <id column="sid" jdbcType="VARCHAR" property="sid" />
+    <result column="order_json" jdbcType="VARCHAR" property="orderJson" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    sid, order_json
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from phishing.tb_order
+    where sid = #{sid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from phishing.tb_order
+    where sid = #{sid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.uspsassa.phishing.entity.Order">
+    <!--@mbg.generated-->
+    insert into phishing.tb_order (sid, order_json)
+    values (#{sid,jdbcType=VARCHAR}, #{orderJson,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uspsassa.phishing.entity.Order">
+    <!--@mbg.generated-->
+    insert into phishing.tb_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="orderJson != null and orderJson != ''">
+        order_json,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderJson != null and orderJson != ''">
+        #{orderJson,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uspsassa.phishing.entity.Order">
+    <!--@mbg.generated-->
+    update phishing.tb_order
+    <set>
+      <if test="orderJson != null and orderJson != ''">
+        order_json = #{orderJson,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uspsassa.phishing.entity.Order">
+    <!--@mbg.generated-->
+    update phishing.tb_order
+    set order_json = #{orderJson,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+</mapper>
