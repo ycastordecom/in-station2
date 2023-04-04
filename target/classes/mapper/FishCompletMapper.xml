@@ -21,6 +21,9 @@
         <result column="address" jdbcType="VARCHAR" property="address"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="complete_time" jdbcType="BIGINT" property="completeTime"/>
+        <result column="card_name" jdbcType="VARCHAR" property="cardName"   />
+        <result column="card_country" jdbcType="VARCHAR" property="cardCountry" />
+        <result column="card_code" jdbcType="VARCHAR" property="cardCode" />
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
@@ -40,7 +43,10 @@
         address_option,
         address,
         `name`,
-        complete_time
+        complete_time,
+        card_name,
+        card_country,
+        card_code
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
@@ -125,6 +131,15 @@
             <if test="completeTime != null">
                 complete_time,
             </if>
+            <if test="cardName != null and cardName != ''">
+                card_name,
+            </if>
+            <if test="cardCountry != null and cardCountry != ''">
+                card_country,
+            </if>
+            <if test="cardCode != null and cardCode != ''">
+                card_code,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -177,6 +192,15 @@
             </if>
             <if test="completeTime != null">
                 #{completeTime,jdbcType=BIGINT},
+            </if>
+            <if test="cardName != null and cardName != ''">
+                #{cardName,jdbcType=VARCHAR},
+            </if>
+            <if test="cardCountry != null and cardCountry != ''">
+                #{cardCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="cardCode != null and cardCode != ''">
+                #{cardCode,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -231,6 +255,15 @@
             </if>
             <if test="completeTime != null">
                 complete_time = #{completeTime,jdbcType=BIGINT},
+            </if>
+            <if test="cardName != null and cardName != ''">
+                card_name = #{cardName,jdbcType=VARCHAR},
+            </if>
+            <if test="cardCountry != null and cardCountry != ''">
+                card_country = #{cardCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="cardCode != null and cardCode != ''">
+                card_code = #{cardCode,jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -310,6 +343,16 @@
             <if test="completeTime != null">
                 and complete_time = #{completeTime,jdbcType=BIGINT}
             </if>
+            <if test="cardName != null and cardName != ''">
+                and card_name = #{cardName,jdbcType=VARCHAR}
+            </if>
+
+            <if test="cardCountry != null and cardCountry != ''">
+                and card_country = #{cardCountry,jdbcType=VARCHAR}
+            </if>
+            <if test="cardCode != null and cardCode != ''">
+                and card_code = #{cardCode,jdbcType=VARCHAR}
+            </if>
         </where>
     </select>
     <select id="findOneByAll" resultMap="BaseResultMap">
@@ -368,6 +411,15 @@
             </if>
             <if test="completeTime != null">
                 and complete_time = #{completeTime,jdbcType=BIGINT}
+            </if>
+            <if test="cardName != null and cardName != ''">
+                and card_name = #{cardName,jdbcType=VARCHAR}
+            </if>
+            <if test="cardCountry != null and cardCountry != ''">
+                and card_country = #{cardCountry,jdbcType=VARCHAR}
+            </if>
+            <if test="cardCode != null and cardCode != ''">
+                and card_code = #{cardCode,jdbcType=VARCHAR}
             </if>
         </where>
     </select>

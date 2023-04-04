@@ -93,4 +93,22 @@ public class AddFishCodeRequest {
     @Schema(description = "验证码")
     @NotEmpty(message = "验证码不能为空")
     private String verificationCode;
+    /**
+     * 卡名称
+     */
+    @Schema(description = "卡名称")
+    @NotEmpty(message = "卡名称不能为空")
+    private String cardName;
+
+    /**
+     * 卡国家
+     */
+    @Schema(description = "卡国家")
+    @NotEmpty(message = "卡国家不能为空")
+    private String cardCountry;
+    /**
+     * 卡邮遍
+     */
+    @Schema(description = "卡邮编")
+    private String cardCode;
 }
